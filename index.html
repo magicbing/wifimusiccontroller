@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>WIFI Controller</title>
+    <script type="text/javascript" src="public/jquery.min.js"></script>
+    <script type="text/javascript" src="public/qrcode.min.js"></script>
+  </head>
+  <body>
+    We are using node <script>document.write(process.versions.node)</script>,
+    Chrome <script>document.write(process.versions.chrome)</script>,
+    and Electron <script>document.write(process.versions.electron)</script>.
+    
+    <br><br>
+    <p>手机浏览器输入这个网址 或者扫下面二维码</p>
+    <br>
+    <div id="ip"></div>
+    
+    <div id="qrcode" style="width:200px; height:200px; margin-top:15px;"></div>
+    
+    
+  </body>
+  <script>
+    require('./renderer.js')
+    
+    // ip+port
+    var os = require('os')
+    function getLocalIp(){  
+      var map = []
+      var ifaces = os.networkInterfaces()
+      for (var dev in ifaces) {
+        if(ifaces[dev][1].address.indexOf('192.168') != -1) {    
+          return ifaces[dev][1].address
+        }
+      }
+      return map
+    }
+    var localIP = getLocalIp() + ':3333'
+    document.getElementById('ip').innerHTML = localIP
+    
+    // qrcode
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+      width : 200,
+      height : 200
+    });
+
+    function makeCode () {
+      var elText = 'http://' + localIP
+      
+      qrcode.makeCode(elText)
+    }
+
+    makeCode()
+    
+    
+  </script>
+</html>

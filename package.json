@@ -1,0 +1,14 @@
+{
+  "name": "wifi_controller",
+  "author": "magicbing",
+  "version": "0.1.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "electron": "1.6.11",
+    "express": "4.15.3",
+    "robotjs": "0.4.7"
+  }
+}
